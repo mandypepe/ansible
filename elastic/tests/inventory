@@ -1,2 +1,4 @@
 localhost
+[elastic]
+elastic ansible_host=192.168.212.169
 
