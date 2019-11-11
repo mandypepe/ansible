@@ -4,8 +4,9 @@
   tasks:
     - name: Adicionado repo
       become: true
-      shell:
-         "rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch"
+    - rpm_key:
+        state: present
+        key: https://artifacts.elastic.co/GPG-KEY-elasticsearch
 
     - name: Instalando el elastic
       package: 
