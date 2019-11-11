@@ -4,7 +4,7 @@
   tasks:
     - name: Adicionado repo
       become: true
-    - rpm_key:
+      rpm_key:
         state: present
         key: https://artifacts.elastic.co/GPG-KEY-elasticsearch
 
