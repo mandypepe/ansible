@@ -2,12 +2,23 @@
 # tasks file for elastic
 - hosts: elastic
   tasks:
-    - name: Adicionado repo
+    - name: Adicionado key
       become: true
       rpm_key:
         state: present
         key: https://artifacts.elastic.co/GPG-KEY-elasticsearch
-
+    - name: Creando repo
+      copy:
+        dest: "/etc/yum.repos.d/elasticsearch.repo"
+        content: |
+            [elasticsearch-7.x]
+            name=Elasticsearch repository for 7.x packages
+            baseurl=https://artifacts.elastic.co/packages/7.x/yum
+            gpgcheck=1
+            gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
+            enabled=1
+            autorefresh=1
+            type=rpm-md
     - name: Instalando el elastic
       package: 
        name: elasticsearch
