@@ -1,13 +1,2 @@
 ---
 # defaults file for elastic
-- hosts: elastic
-  tasks:
-    - name: Adicionado repo
-      become: true
-      shell:
-         "rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch"
-      register: addrepo
-      tags: addrepo
-    - name: Instalando el elastic
-      package: elasticsearch
-      state: present
