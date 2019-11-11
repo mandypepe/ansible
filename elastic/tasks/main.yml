@@ -8,5 +8,6 @@
          "rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch"
 
     - name: Instalando el elastic
-      package: elasticsearch
-      state: present
+      package: 
+       name: elasticsearch
+       state: present
