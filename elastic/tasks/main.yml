@@ -32,6 +32,6 @@
       become: true
       shell: "/bin/systemctl enable elasticsearch.service"
       register: service_salida
-      notify: "restart elasticsearch services"
+      notify: "restart_elasticsearch_services"
     - debug: var=service_salida 
     
