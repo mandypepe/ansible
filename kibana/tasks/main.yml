@@ -47,23 +47,25 @@
       register: service_salida
     - debug: var=service_salida
       notify: restart_kibana_services
+    - name: restart kibana
+      become: true
+      shell: "systemctl restart kibana.service"
+      register: service_salida
+    - debug: var=service_salida
     - name: Open port kibana
       firewalld:
        service: kibana
        permanent: true
-       zone: dmz
        state: enabled
     - name: open ports tcp
       firewalld:
        port: 5601/tcp
        permanent: yes
-       zone: dmz
        state: enabled
     - name: open udp
       firewalld:
        port: 5601/udp
        permanent: yes
-       zone: dmz
        state: enabled
     - name: restartd firewalld
       service: 
