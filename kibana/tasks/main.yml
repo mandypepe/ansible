@@ -53,21 +53,30 @@
       register: service_salida
     - debug: var=service_salida
     - name: Open port kibana
+      become: true
       firewalld:
        service: kibana
        source: 192.168.0.0/24
-       permanent: true
+       zone: public
+       immediate: yes
+       permanent: yes
        state: enabled
     - name: open ports tcp
+      become: true
       firewalld:
        port: 5601/tcp
        source: 192.168.0.0/24
+       zone: public
+       immediate: yes
        permanent: yes
        state: enabled
     - name: open udp
+      become: true
       firewalld:
        port: 5601/udp
        source: 192.168.0.0/24
+       zone: public
+       immediate: yes
        permanent: yes
        state: enabled
     - name: restartd firewalld
