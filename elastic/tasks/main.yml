@@ -26,8 +26,14 @@
     - name: Copiando configuracion
       become: true
       template:
-        src: /templates/elasticsearch.yml.j2
+        src: /root/ansible/elastic/templates/elasticsearch.yml.j2
         dest: /etc/elasticsearch/elasticsearch.yml
+        owner: root
+        group: root
+        mode: '0644'
+        backup: yes
+        register: template_output
+    - debug: var=template_output
     - name:  systemctl daemon-reload
       become: true
       shell: "/bin/systemctl daemon-reload"
