@@ -38,9 +38,14 @@
       service:
         name: elasticsearch
         state: restarted
-    - name: open ports
+    - name: open ports tcp
       firewalld:
-       port: 9200
+       port: 9200/tcp
+       permanent: yes
+       state: enabled
+    - name: open udp
+      firewalld:
+       port: 9200/udp
        permanent: yes
        state: enabled
     - name: restartd firewalld
