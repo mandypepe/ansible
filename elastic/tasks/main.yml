@@ -38,19 +38,24 @@
       service:
         name: elasticsearch
         state: restarted
+    - name: Open port elasticsearch
+      firewalld:
+       service: elasticsearch
+       permanent: true
+       state: enabled
     - name: open ports tcp
       firewalld:
        port: 9200/tcp
+       zone: dmz
        permanent: yes
        state: enabled
     - name: open udp
       firewalld:
        port: 9200/udp
+       zone: dmz
        permanent: yes
        state: enabled
     - name: restartd firewalld
       service: 
         name: firewalld 
         state: restarted
-
-    
