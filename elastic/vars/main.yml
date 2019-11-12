@@ -1,2 +1,4 @@
 ---
 # vars file for elastic
+elastic_net: 0.0.0.0
+elastic_port: 9200

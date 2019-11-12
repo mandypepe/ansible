@@ -5,4 +5,4 @@
   service:
         name: elasticsearch
         state: restarted
-  listen: "restart_elasticsearch_services"
+
