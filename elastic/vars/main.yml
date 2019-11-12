@@ -3,5 +3,4 @@
 elasticnet: 0.0.0.0
 elasticport: 9200
 ruta: "/var/lib/elasticsearch"
-logs: "/var/log/elasticsearch"---
-# vars file for elastic
+logs: "/var/log/elasticsearch"

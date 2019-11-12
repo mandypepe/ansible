@@ -19,6 +19,10 @@
             enabled=1
             autorefresh=1
             type=rpm-md
+    - name: Instalando el JDK
+      package: 
+       name: java-latest-openjdk-devel
+       state: present
     - name: Instalando el elastic
       package: 
        name: elasticsearch
@@ -42,23 +46,24 @@
       shell: "/bin/systemctl enable elasticsearch.service"
       register: service_salida
     - debug: var=service_salida 
-      #notify: restart_elasticsearch_services
+      notify: restart_elasticsearch_services
     - name: Open port elasticsearch
       firewalld:
        service: elasticsearch
        permanent: true
+       zone: dmz
        state: enabled
     - name: open ports tcp
       firewalld:
        port: 9200/tcp
-       zone: dmz
        permanent: yes
+       zone: dmz
        state: enabled
     - name: open udp
       firewalld:
        port: 9200/udp
-       zone: dmz
        permanent: yes
+       zone: dmz
        state: enabled
     - name: restartd firewalld
       service: 

@@ -1,0 +1,40 @@
+---
+# tasks file for elastic
+- hosts: kibana
+  tasks:
+    - name: Adicionado key
+      become: true
+      rpm_key:
+        state: present
+        key: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    - name: Creando repo
+      copy:
+        dest: "/etc/yum.repos.d/elasticsearch.repo"
+        content: |
+            [kibana-7.x]
+            name=Kibana repository for 7.x packages
+            baseurl=https://artifacts.elastic.co/packages/7.x/yum
+            gpgcheck=1
+            gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
+            enabled=1
+            autorefresh=1
+            type=rpm-md
+    - name: Instalando el JDK
+      package: 
+       name: java-latest-openjdk-devel
+       state: present
+    - name: Instalando el kibana
+      package: 
+       name: kibana
+       state: present
+    - name:  systemctl daemon-reload
+      become: true
+      shell: "/bin/systemctl daemon-reload"
+      register: shell_output
+    - debug: var=shell_output
+    - name: systemctl enable kibana.service
+      become: true
+      shell: "/bin/systemctl enable kibana.service"
+      register: service_salida
+    - debug: var=service_salida
+      notify: restart_kibana_services
