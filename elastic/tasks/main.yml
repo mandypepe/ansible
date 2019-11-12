@@ -42,12 +42,7 @@
       shell: "/bin/systemctl enable elasticsearch.service"
       register: service_salida
     - debug: var=service_salida 
-    - name: restart_elasticsearch_services
-      become: true
-      service:
-        name: elasticsearch
-        state: restarted
-      notify: restart_elasticsearch_services
+      #notify: restart_elasticsearch_services
     - name: Open port elasticsearch
       firewalld:
        service: elasticsearch
