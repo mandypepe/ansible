@@ -28,4 +28,10 @@
       shell: "/bin/systemctl daemon-reload"
       register: shell_output
     - debug: var=shell_output
-      
+    - name: systemctl enable elasticsearch.service
+      become: true
+      shell: "/bin/systemctl enable elasticsearch.service"
+      register: service_salida
+      notify: "restart elasticsearch services"
+    - debug: var=service_salida 
+    
