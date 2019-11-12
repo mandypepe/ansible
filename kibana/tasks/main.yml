@@ -27,6 +27,15 @@
       package: 
        name: kibana
        state: present
+    - name: Copiando configuracion
+      become: true
+      template:
+        src: "kibana.yml.j2"
+        dest: "/etc/kibana/kibana.yml"
+        owner: root
+        group: root
+        mode: '0644'
+        backup: yes
     - name:  systemctl daemon-reload
       become: true
       shell: "/bin/systemctl daemon-reload"
@@ -38,3 +47,4 @@
       register: service_salida
     - debug: var=service_salida
       notify: restart_kibana_services
+    
