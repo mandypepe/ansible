@@ -1,4 +1,5 @@
 localhost
 [elastic]
-elastic ansible_host=192.168.212.169
+elastic ansible_host=192.168.0.13
+#elastic ansible_host=192.168.212.169
 

@@ -23,3 +23,9 @@
       package: 
        name: elasticsearch
        state: present
+    - name:  systemctl daemon-reload
+      become: true
+      shell: "/bin/systemctl daemon-reload"
+      register: shell_output
+    - debug: var=shell_output
+      
