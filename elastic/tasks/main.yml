@@ -26,8 +26,8 @@
     - name: Copiando configuracion
       become: true
       template:
-        src: /root/ansible/elastic/templates/elasticsearch.yml.j2
-        dest: /etc/elasticsearch/elasticsearch.yml
+        src: "elasticsearch.yml.j2"
+        dest: "/etc/elasticsearch/elasticsearch.yml"
         owner: root
         group: root
         mode: '0644'

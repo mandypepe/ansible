@@ -1,8 +1,2 @@
 ---
 # handlers file for elastic
-- name: restart_elasticsearch_services
-  become: true
-  service:
-        name: elasticsearch
-        state: restarted
-
