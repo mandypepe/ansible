@@ -55,20 +55,23 @@
     - name: Open port kibana
       firewalld:
        service: kibana
+       source: 192.168.0.0/24
        permanent: true
        state: enabled
     - name: open ports tcp
       firewalld:
        port: 5601/tcp
+       source: 192.168.0.0/24
        permanent: yes
        state: enabled
     - name: open udp
       firewalld:
        port: 5601/udp
+       source: 192.168.0.0/24
        permanent: yes
        state: enabled
     - name: restartd firewalld
       service: 
-        name: firewalld 
+        name: firewalld
         state: restarted
     
