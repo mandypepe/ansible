@@ -32,8 +32,6 @@
         group: root
         mode: '0644'
         backup: yes
-        register: template_output
-    - debug: var=template_output
     - name:  systemctl daemon-reload
       become: true
       shell: "/bin/systemctl daemon-reload"
