@@ -36,22 +36,13 @@
         group: root
         mode: '0644'
         backup: yes
-    - name:  systemctl daemon-reload
-      become: true
-      shell: "/bin/systemctl daemon-reload"
-      register: shell_output
-    - debug: var=shell_output
-    - name: systemctl enable kibana.service
-      become: true
-      shell: "/bin/systemctl enable kibana.service"
-      register: service_salida
-    - debug: var=service_salida
+    - name: Reload systemctl
+      systemd:
+         daemon_reload: yes
+         name: kibana.service
+         state: started
+         enabled: yes
       notify: restart_kibana_services
-    - name: restart kibana
-      become: true
-      shell: "systemctl restart kibana.service"
-      register: service_salida
-    - debug: var=service_salida
     - name: Open port kibana
       become: true
       firewalld:

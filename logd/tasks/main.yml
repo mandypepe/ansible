@@ -1,2 +1,57 @@
 ---
 # tasks file for logd
+- hosts: logd
+  tasks:
+    - name: Adicionado key
+      become: true
+      rpm_key:
+        state: present
+        key: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    - name: Creando repo
+      copy:
+        dest: "/etc/yum.repos.d/elasticsearch.repo"
+        content: |
+            [logstash-7.x]
+            name=Elastic repository for 7.x packages
+            baseurl=https://artifacts.elastic.co/packages/7.x/yum
+            gpgcheck=1
+            gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
+            enabled=1
+            autorefresh=1
+            type=rpm-md
+    - name: Instalando el JDK
+      package: 
+       name: java-latest-openjdk-devel
+       state: present
+    - name: Instalando el logd
+      package: 
+       name: logstash
+       state: present
+    - name: Reload systemctl
+      systemd:
+         daemon_reload: yes
+         name: logstash.service
+         state: started
+         enabled: yes
+    - name: open ports tcp
+      become: true
+      firewalld:
+       port: 5044/tcp
+       source: 192.168.0.0/24
+       zone: public
+       immediate: yes
+       permanent: yes
+       state: enabled
+    - name: open udp
+      become: true
+      firewalld:
+       port: 5044/udp
+       source: 192.168.0.0/24
+       zone: public
+       immediate: yes
+       permanent: yes
+       state: enabled
+    - name: restartd firewalld
+      service: 
+        name: firewalld
+        state: restarted
